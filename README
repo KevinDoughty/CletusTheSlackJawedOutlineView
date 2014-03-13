@@ -1,4 +1,3 @@
 This sample shows NSOutlineView preservation of selection and expansion state across saves and undo/redo.
-It uses an NSTreeController but does not use Core Data.
-It has a custom data model.
-Unfortunately it makes drag and drop is difficult.
+It uses an NSTreeController with a custom data model, not Core Data.
+Unfortunately it makes drag and drop difficult.
