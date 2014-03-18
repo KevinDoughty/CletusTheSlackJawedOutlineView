@@ -40,13 +40,7 @@
 	return children;
 }
 -(void) setChildren:(NSMutableArray*)theChildren {
-    [children release];
-    children = [theChildren retain];
-}
--(void) dealloc {
-	[name release];
-	[children release];
-	[super dealloc];
+    children = theChildren;
 }
 
 
@@ -80,13 +74,12 @@
     return name;
 }
 -(void) setName:(NSString*)theName {
-	[self.context.undoManager registerUndoWithTarget:self selector:@selector(setName:) object:[[name copy] autorelease]]; // avoids warning: multiple methods named '-setName:' found
+	[self.context.undoManager registerUndoWithTarget:self selector:@selector(setName:) object:[name copy]]; // avoids warning: multiple methods named '-setName:' found
 	if (![self.context.undoManager isUndoing]) {
         [self.context.undoManager setActionName:[NSString stringWithFormat:@"setName:%@",theName]];
 	} else {
         [self.context.undoManager setActionName:[NSString stringWithFormat:@"setName:%@",self.name]];
     }
-	[name release];
 	name = [theName copy];
 }
 

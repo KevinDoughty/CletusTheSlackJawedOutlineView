@@ -10,13 +10,13 @@
 #import "SlackJawedNode.h"
 @class SlackJawedOutlineView;
 @interface SlackJawedContext : SlackJawedNode {
-	NSUndoManager *undoManager;
+	NSUndoManager *__weak undoManager;
 	NSMutableSet *expandedObjects;
 	NSArray *selectionIndexPaths;
 }
 
 
-@property (assign) NSUndoManager *undoManager;
+@property (weak) NSUndoManager *undoManager;
 @property (copy) NSSet *expandedObjects;
 @property (copy) NSArray *selectionIndexPaths;
 

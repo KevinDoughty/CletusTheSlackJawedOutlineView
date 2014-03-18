@@ -13,7 +13,7 @@
 	NSMutableSet *expandedObjects;
 	BOOL blockExpandOrCollapseFromPropagatingBackUp;
 }
-@property (retain) NSSet *expandedObjects;
+@property (strong) NSSet *expandedObjects;
 
 -(void) expandObject:(id)theObject;
 -(void) collapseObject:(id)theObject;

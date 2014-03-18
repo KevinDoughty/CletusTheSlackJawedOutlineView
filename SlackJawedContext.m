@@ -36,7 +36,6 @@
 	return self;
 }
 -(void) setName:(NSString*)theName { // do not register undo for name
-	[name release];
 	name = [theName copy];
 }
 -(void) setParent:(SlackJawedContext*)nomnomnom {
@@ -50,10 +49,7 @@
 }
 
 -(void) dealloc {
-	[expandedObjects release];
-	[selectionIndexPaths release];
 	self.undoManager = nil;
-	[super dealloc];
 }
 
 
@@ -70,15 +66,13 @@
 	return selectionIndexPaths;
 }
 -(void) setSelectionIndexPaths:(NSArray*)theSelectionIndexPaths {
-    [selectionIndexPaths release];
-	selectionIndexPaths = [theSelectionIndexPaths retain];
+	selectionIndexPaths = theSelectionIndexPaths;
 }
 -(NSSet*)expandedObjects {
 	if (expandedObjects == nil) expandedObjects = [[NSMutableSet alloc] init];
 	return expandedObjects;
 }
 -(void) setExpandedObjects:(NSSet*)theExpandedObjects {
-    [expandedObjects release];
 	expandedObjects = [[NSMutableSet alloc] initWithSet:theExpandedObjects];
 }
 -(void) addExpandedObjectsObject:(id)theObject {

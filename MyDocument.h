@@ -17,6 +17,6 @@
 	
 }
 
-@property (retain) SlackJawedContext *slackJawedContext;
+@property (strong) SlackJawedContext *slackJawedContext;
 
 @end

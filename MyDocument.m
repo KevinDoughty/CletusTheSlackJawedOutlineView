@@ -9,6 +9,7 @@
 #import "MyDocument.h"
 #import "SlackJawedContext.h"
 #import "SlackJawedNode.h"
+#import "SlackJawedOutlineView.h"
 
 #define kNodesPasteBoardType @"draggedNodesPasteBoardType"
 
@@ -53,16 +54,6 @@
     return YES;
 }
 
-
-
-
-
-
--(void) dealloc {
-	
-	[slackJawedContext release];
-	[super dealloc];
-}
 
 
 #pragma mark - NSOutlineView drag and drop
@@ -159,7 +150,7 @@
         NSMutableSet *reExpandedObjects = [NSMutableSet set];
         
         while (i--) { // calculate new targetIndexPath for after nodes are removed. Do not remove treeNodes yet, because adding or removing top level nodes results in a call to NSTreeController setContent: which might wipe out the existing tree nodes.
-            NSTreeNode *theTreeNode = [[draggedTreeNodes objectAtIndex:i] retain];
+            NSTreeNode *theTreeNode = [draggedTreeNodes objectAtIndex:i];
             NSIndexPath *theIndexPath = [theTreeNode indexPath];
             NSUInteger j = 0;
             SlackJawedNode *theNode = [theTreeNode representedObject];
@@ -196,7 +187,7 @@
                     for (NSUInteger k = j+1; k < theTargetLength; k++) {
                         theIndexes[k] = [targetIndexPath indexAtPosition:k];
                     }
-                    targetIndexPath = [[[NSIndexPath alloc] initWithIndexes:theIndexes length:theTargetLength] autorelease];
+                    targetIndexPath = [[NSIndexPath alloc] initWithIndexes:theIndexes length:theTargetLength];
                     free(theIndexes);
                     if (verbose) NSLog(@": ADJUSTED indexPath %@",targetIndexPath);
                 }
@@ -206,7 +197,7 @@
         i = [draggedTreeNodes count];
         NSArray *draggedModelNodes = [draggedTreeNodes valueForKey:@"representedObject"];
         while (i--) {
-            SlackJawedNode *theNode = [[draggedModelNodes objectAtIndex:i] retain];
+            SlackJawedNode *theNode = [draggedModelNodes objectAtIndex:i];
             SlackJawedNode *theParentNode = theNode.parent; // inverse relationship hard coded!
             NSMutableArray *theOldMutableArray = [theParentNode mutableArrayValueForKey:[treeController childrenKeyPath]];
             NSUInteger theOldIndex = [theOldMutableArray indexOfObject:theNode];
@@ -217,7 +208,6 @@
             if ([theOldMutableArray count] == 0) {
                 [[slackJawedContext mutableSetValueForKey:@"expandedObjects"] removeObject:theParentNode];
             }
-            [theNode release];
         }
         
         

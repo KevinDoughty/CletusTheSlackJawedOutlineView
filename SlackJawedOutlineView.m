@@ -13,14 +13,6 @@
 
 @implementation SlackJawedOutlineView
 @synthesize expandedObjects;
-+(void)initialize {
-    [self exposeBinding:@"expandedObjects"];
-}
--(Class)valueClassForBinding:(NSString *)theBinding {
-	if ([theBinding isEqualToString:@"expandedObjects"]) return [NSSet class];
-	return [super valueClassForBinding:theBinding];
-}
-
 
 - (id)observedObjectForExpandedObjects {
 	NSDictionary *theBindingInfo = [self infoForBinding:@"expandedObjects"];
@@ -133,7 +125,6 @@
 }
 -(void)setExpandedObjects:(NSSet*)theExpandedObjects {
 	[self syncExpandedObjects:theExpandedObjects];
-    [expandedObjects release];
     expandedObjects = [[NSMutableSet alloc] initWithSet:theExpandedObjects];
 }
 
@@ -188,10 +179,6 @@
     [self syncExpandedObjectsToTreeNode:theItem syncChildren:theReloadChildren];
 }
 
--(void) dealloc {
-	[expandedObjects release];
-	[super dealloc];
-}
 
 
 

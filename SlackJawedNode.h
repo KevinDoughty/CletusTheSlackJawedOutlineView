@@ -10,14 +10,14 @@
 //@class MyDocument;
 @class SlackJawedContext;
 @interface SlackJawedNode : NSObject {
-	SlackJawedContext *context;
-	SlackJawedNode *parent;
+	SlackJawedContext *__weak context;
+	SlackJawedNode *__weak parent;
 	NSMutableArray *children;
 	NSString *name;
 }
-@property (assign) SlackJawedContext *context;
-@property (assign) SlackJawedNode *parent;
-@property (retain) NSMutableArray *children;
+@property (weak) SlackJawedContext *context;
+@property (weak) SlackJawedNode *parent;
+@property (strong) NSMutableArray *children;
 @property (copy) NSString *name;
 
 -(void)insertObject:(id)theObject inChildrenAtIndex:(NSUInteger)theIndex;
